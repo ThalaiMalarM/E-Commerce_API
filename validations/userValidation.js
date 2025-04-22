@@ -20,4 +20,15 @@ const userRegisterSchemaZod = z.object({
     }),
 });
 
-module.exports = userRegisterSchemaZod;
+const userLoginSchemaZod = z.object({
+    email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Invalid email address" }),
+    password: z
+    .string()
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&*?])[A-Za-z\d!@#$%&?]{6,15}$/, {
+        message: "Password must be atleast 6 characters and maximum 15 characters length and must contain atleast one letter, one digit and one special character"
+    }),
+});
+
+module.exports = { userRegisterSchemaZod, userLoginSchemaZod };
